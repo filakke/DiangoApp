@@ -8,4 +8,8 @@
     <p>{{ order.quantity }} dans le Panier </p>
 {% endfor %}
  
+<p>
+    <a href="{% url 'delete-cart'%}">Supprimer le Panier</a>
+</p>
+
 {% endblock%}

@@ -18,7 +18,7 @@
     {% endif %}
     
     {% if user.cart %}
-    <a href="{% url 'cart' %}"> Voila le Panier ({{ user.cart.order.count }})</a>
+    <a href="{% url 'cart' %}"> Voila le Panier ({{ user.cart.orders.count }})</a>
     {% endif%}
 
     {% block content %}

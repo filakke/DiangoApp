@@ -1,3 +1,4 @@
+from time import timezone
 from django.db import models
 from django.urls import reverse
 
@@ -40,6 +41,7 @@ class Order(models.Model):
     product = models.ForeignKey(ProductApp, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
     ordered = models.BooleanField(default=False)
+    ordered_date = models.DateTimeField(blank=True, null=True)
     
     def __str__(self):
         return f"{self.product.name}({self.quantity})"
@@ -54,9 +56,17 @@ class Order(models.Model):
 class Cart(models.Model):
     user = models.OneToOneField(AUTH_USER_MODEL, on_delete=models.CASCADE)
     orders = models.ManyToManyField(Order)
-    ordered = models.BooleanField(default=False)
-    ordered_date = models.DateTimeField(blank=True, null=True)
+    
     
     
     def __str__(self):
         return self.user.username
+    
+    def delete(self, *args, **kwargs):
+        for order in self.orders.all():
+            order.ordered = True
+            order = ordered_date = timezone.now()
+            order.save()
+            
+            self.orders.clear()
+            super().delete(*args, **kwargs)

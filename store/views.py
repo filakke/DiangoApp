@@ -18,6 +18,7 @@ def add_to_cart(request, slug):
     # et on lui passe slug, on lui recupere dans le variabe product
     cart, _ = Cart.objects.get_or_create(user=user) # si le produit exist on va recupere le panier de l'utilisateur avec get_or_created, si il exist pas il est crée, au cas contrere on lui recupere dans le variable cart
     order, created = Order.objects.get_or_create(user=user,
+                                                 ordered = False,
                                                  product=product) #  pareille avec order, on cherche dans la bd si l'objet order est associe avec user qui fait la requet qui corespond au produit qu'on souhait ajouter  
     
     if created: # si le produit est cree
@@ -34,3 +35,12 @@ def cart(request):
     
     
     return render(request, 'stroe/cart.html', context={"orders": cart.orders.all()})
+
+
+def delete_cart(request):
+    if cart := request.user.cart: 
+      #  cart.orders.all().delete()
+        cart.delete()
+        
+    return redirect('index')
+    
