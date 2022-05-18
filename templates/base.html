@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>La boutiue de Diallo</title>
+        </head>
+    <body>
+    <a href="{% url 'index' %}">
+        <h1> la boutique dicko et frere</h1>
+    </a>
+
+    {% if user.is_authenticated %}
+        {{ user.username }}
+        <a href="{%  url 'logout' %}">Déconnexion</a>
+    {% else %}
+        <a href="{%  url 'login' %}">Connexion</a>
+        <a href="{%  url 'signup' %}">S'inscrire</a>
+    {% endif %}
+    
+    {% if user.cart %}
+    <a href="{% url 'cart' %}"> Voila le Panier ({{ user.cart.order.count }})</a>
+    {% endif%}
+
+    {% block content %}
+    
+    {% endblock  %}
+    </body>
+</html>
