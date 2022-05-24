@@ -1,9 +1,11 @@
+{% load static tailwind_tags %}
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
         <title>La boutiue de Diallo</title>
-        </head>
+        {% tailwind_css %}
+    </head>
     <body>
     <a href="{% url 'index' %}">
         <h1> la boutique dicko et frere</h1>

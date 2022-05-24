@@ -13,7 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.urls import path
+from django.urls import include, path
 from django.contrib import admin
 from accounts.views import signup, logout_user, login_user
 from store.views import delete_cart, index, product_detail, add_to_cart, cart
@@ -32,5 +32,6 @@ urlpatterns = [
     path('cart/delete/', delete_cart, name="delete-cart"),
     path('product/<str:slug>/', product_detail, name="product"),
     path('product/<str:slug>/add-to-cart', add_to_cart, name="add-to-cart"),
+    #path("__reload__/", include("django_browser_reload.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 
 
